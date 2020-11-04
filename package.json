@@ -19,9 +19,15 @@
     }
   },
   "lint-staged": {
-    "**/*.less": "stylelint --syntax less --fix",
-    "**/*.{js,jsx,ts,tsx}": "eslint --fix",
-    "**/*.{js,jsx,tsx,ts,less,md,json}": "prettier --write"
+    "**/*.less": [
+      "stylelint --syntax less --fix",
+      "prettier --write"
+    ],
+    "**/*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "**/*.{md,json}": "prettier --write"
   },
   "dependencies": {
     "@ant-design/icons": "^4.2.2",
