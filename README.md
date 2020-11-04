@@ -45,6 +45,7 @@ $ yarn plop page | component | modal
 ## 技术栈
 
 - React Hooks
+- typescript
 - react-router-dom：前端路由
 - antd：管理平台组件
 - @ant-design/pro-layout：管理平台组件
