@@ -6,9 +6,7 @@ import Input from '@/components/Input'
 import logo from '@/assets/logo.svg'
 import style from './style.less'
 
-function Home(props): React.ReactElement {
-  console.log(props)
-
+function Home(): React.ReactElement {
   return (
     <PageContainer>
       <div className={style.App}>
