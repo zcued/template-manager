@@ -13,8 +13,10 @@
     "prettier": "prettier --write \"src/**/*.{js,jsx,ts,tsx,less}\"",
     "tsc": "tsc --noEmit"
   },
-  "gitHooks": {
-    "pre-commit": "lint-staged"
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   },
   "lint-staged": {
     "**/*.less": "stylelint --syntax less --fix",
@@ -55,6 +57,7 @@
     "eslint": "^7.12.1",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^4.5.0",
+    "husky": "^4.3.0",
     "less": "^3.12.2",
     "less-loader": "^7.0.2",
     "lint-staged": "^10.5.1",
