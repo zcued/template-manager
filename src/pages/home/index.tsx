@@ -1,12 +1,21 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Result, Button } from 'antd'
 import { PageContainer } from '@ant-design/pro-layout'
 import Input from '@/components/Input'
+import { getUserList } from '@/services/user'
 import logo from '@/assets/logo.svg'
 import style from './style.less'
 
 function Home(): React.ReactElement {
+  const fetchUserList = async () => {
+    await getUserList()
+  }
+
+  useEffect(() => {
+    fetchUserList()
+  }, [])
+
   return (
     <PageContainer>
       <div className={style.App}>

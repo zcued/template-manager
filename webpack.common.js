@@ -2,6 +2,7 @@ const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const AntdDayjsWebpackPlugin = require('antd-dayjs-webpack-plugin')
 
 module.exports = {
   entry: './src/index.tsx',
@@ -25,8 +26,9 @@ module.exports = {
       {
         test: /\.less$/,
         use: [
-          'style-loader',
-          // MiniCssExtractPlugin.loader,
+          process.env.NODE_ENV === 'production'
+            ? MiniCssExtractPlugin.loader
+            : 'style-loader',
           {
             loader: 'css-loader',
             options: {
@@ -74,10 +76,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './public/index.html',
     }),
-    new MiniCssExtractPlugin({
-      filename: '[name]-[contenthash:8].css',
-      chunkFilename: '[name]-[contenthash:8].css',
-    }),
+    new AntdDayjsWebpackPlugin(),
     new webpack.DefinePlugin({
       ENV: JSON.stringify(process.env.ENV),
     }),

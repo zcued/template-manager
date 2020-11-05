@@ -22,9 +22,12 @@
   "include": [
     "src/**/*",
     "config/**/*",
+    "plop-config/**/*",
+    "plop-template/**/*",
     ".eslintrc.js",
     ".prettierrc.js",
     "babel.config.js",
+    "plopfile.js",
     "webpack.common.js",
     "webpack.dev.js",
     "webpack.prod.js"

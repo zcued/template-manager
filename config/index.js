@@ -3,7 +3,8 @@ const ENV_MAP = {
     apiUrl: 'https://api.hellorf.com/',
   },
   alpha: {
-    apiUrl: 'http://backbone.alpha.hellorf.pub/',
+    apiUrl: 'https://randomuser.me/',
+    // apiUrl: 'http://backbone.alpha.hellorf.pub/',
   },
   beta: {
     apiUrl: 'http://backbone.beta.hellorf.pub/',
@@ -19,7 +20,7 @@ const { apiUrl } = ENV_MAP[DEV_ENV]
 
 module.exports = {
   proxy: {
-    '/api/manager/*': {
+    '/api': {
       target: apiUrl,
       changeOrigin: true,
       secure: false,

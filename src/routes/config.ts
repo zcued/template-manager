@@ -37,6 +37,11 @@ const routes: Route[] = [
     component: 'user/sub-page2',
   },
   {
+    path: '/user/plop',
+    name: 'plop模版',
+    component: 'user/plop',
+  },
+  {
     path: '/about',
     name: '关于我们',
     component: 'about',
