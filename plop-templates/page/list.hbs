@@ -1,0 +1,161 @@
+import React, { useState, useEffect } from 'react'
+import { Card, Row, Col, Form, Input, Select, DatePicker, Button, Table, Divider } from 'antd'
+import { PageContainer } from '@ant-design/pro-layout'
+import { RouteComponentProps } from '@/routes'
+import { getUserList } from '@/services/user'
+
+const { Item: FormItem } = Form
+const { Option } = Select
+const { RangePicker } = DatePicker
+
+const colSpan = {
+  sm: 24,
+  md: 12,
+  lg: 8,
+  xxl: 6,
+}
+
+export default function {{nameParse/pascalName}}({ location, route }: RouteComponentProps) {
+  const [isLoading, setIsLoading] = useState(false)
+  const [data, setData] = useState([])
+  const [current, setCurrent] = useState(1)
+  const [pageSize, setPageSize] = useState(10)
+  const [total, setTotal] = useState(0)
+
+  const columns = [
+    {
+      title: '规则名称',
+      dataIndex: 'name',
+    },
+    {
+      title: '描述',
+      dataIndex: 'desc',
+    },
+    {
+      title: '服务调用次数',
+      dataIndex: 'callNo',
+      sorter: true,
+    },
+    {
+      title: '状态',
+      dataIndex: 'status',
+    },
+    {
+      title: '上次调度时间',
+      dataIndex: 'updatedAt',
+      sorter: true,
+    },
+    {
+      title: '操作',
+      dataIndex: 'option',
+      render: () => (
+        <>
+          <a>配置</a>
+          <Divider type="vertical" />
+          <a href="">订阅警报</a>
+        </>
+      ),
+    },
+  ]
+
+  async function fetch(params: any) {
+    setIsLoading(true)
+
+    try {
+      const res = await getUserList({
+        ...params,
+        sorter: {},
+        filter: {},
+      })
+
+      if (res.success) {
+        setData(res.data)
+        setPageSize(res.pageSize)
+        setTotal(res.total)
+      }
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  function handleSearch(params, page, size) {
+    history.push({
+      pathname: route.path,
+      query: {
+        ...params,
+        current: page,
+        pageSize: size,
+      },
+    })
+  }
+
+  useEffect(() => {
+    fetch(location.query)
+  }, [location.query])
+
+  return (
+    <PageContainer>
+      <Card className="table-search">
+        <Form onFinish={(values) => handleSearch(values, 1, pageSize)}>
+          <Row gutter={24}>
+            <Col {...colSpan}>
+              <FormItem label="名称" name="name" initialValue={location.query.name}>
+                <Input placeholder="请输入" allowClear />
+              </FormItem>
+            </Col>
+            <Col {...colSpan}>
+              <FormItem label="状态" name="status" initialValue={location.query.status}>
+                <Select placeholder="请选择" allowClear>
+                  <Option value={1}>1</Option>
+                  <Option value={2}>1</Option>
+                  <Option value={3}>1</Option>
+                </Select>
+              </FormItem>
+            </Col>
+            <Col {...colSpan}>
+              <FormItem label="时间" name="updatedAt">
+                <RangePicker />
+              </FormItem>
+            </Col>
+            <Col className="options" flex={1}>
+              <FormItem>
+                <Button type="primary" htmlType="submit">
+                  查询
+                </Button>
+                <Button>导出</Button>
+              </FormItem>
+            </Col>
+          </Row>
+        </Form>
+      </Card>
+      <Card className="table-list">
+        <div className="options">
+          <h3>{{title}}</h3>
+          <div>
+            <Button type="primary">新建</Button>
+          </div>
+        </div>
+        <Table
+          loading={isLoading}
+          dataSource={data}
+          columns={columns}
+          rowKey={(record: any) => record.key}
+          pagination=\{{
+            current,
+            pageSize,
+            total,
+            position: ['bottomRight'],
+            size: 'small',
+            showQuickJumper: true,
+            showSizeChanger: true,
+            showTotal: (totalCount) => `共 ${totalCount} 条记录`,
+          }}
+          onChange={(pagination) => {
+            setCurrent(pagination.current || 1)
+            handleSearch({}, pagination.current, pagination.pageSize)
+          }}
+        />
+      </Card>
+    </PageContainer>
+  )
+}
