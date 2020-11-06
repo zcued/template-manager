@@ -1,7 +1,6 @@
 const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const AntdDayjsWebpackPlugin = require('antd-dayjs-webpack-plugin')
 
 module.exports = {
@@ -22,40 +21,6 @@ module.exports = {
       {
         test: /\.(t|j)sx?$/,
         use: 'babel-loader',
-      },
-      {
-        test: /\.less$/,
-        use: [
-          process.env.NODE_ENV === 'production'
-            ? MiniCssExtractPlugin.loader
-            : 'style-loader',
-          {
-            loader: 'css-loader',
-            options: {
-              modules: {
-                localIdentName: '[path][name]__[local]--[hash:base64:5]',
-                mode: (resourcePath) => {
-                  if (
-                    /global.(le|c)ss$/i.test(resourcePath) ||
-                    /node_modules\/.*.(le|c)ss$/i.test(resourcePath)
-                  ) {
-                    return 'global'
-                  }
-
-                  return 'local'
-                },
-              },
-            },
-          },
-          {
-            loader: 'less-loader',
-            options: {
-              lessOptions: {
-                javascriptEnabled: true,
-              },
-            },
-          },
-        ],
       },
       {
         test: /.(svg|png|jpe?g|gif)$/,

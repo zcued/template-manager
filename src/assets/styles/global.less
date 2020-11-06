@@ -15,12 +15,26 @@
     padding-bottom: 0;
   }
 
-  .ant-form-item-control-input-content > *:not(button) {
-    width: 100%;
+  .ant-form-item-control-input-content {
+    display: flex;
+    align-items: center;
+
+    & > .ant-input,
+    & > .ant-input-number,
+    & > .ant-select,
+    & > .ant-picker {
+      flex: 1;
+    }
+
+    & > .divider {
+      margin: 0 8px;
+    }
   }
 
   .options {
-    text-align: right;
+    .ant-form-item-control-input-content {
+      justify-content: flex-end;
+    }
 
     button + button {
       margin-left: 8px;

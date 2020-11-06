@@ -4,6 +4,7 @@ module.exports = (plop) => {
   const pagePath = 'src/pages'
   const templatePath = 'plop-templates/page'
   const getPascalCase = plop.getHelper('pascalCase')
+  const getSnakeCase = plop.getHelper('snakeCase')
 
   plop.setGenerator('page', {
     description: '创建一个页面',
@@ -38,11 +39,11 @@ module.exports = (plop) => {
         pascalName: getPascalCase(path.join(data.path, dir, name)),
       }
 
-      const configBasePath = `/${data.path}`
+      const configBasePath = data.path
       const configPath = data.name.endsWith('/index')
         ? path.join(configBasePath, dir)
         : path.join(configBasePath, dir, name)
-      const configComponent = `.${path.join(configBasePath, dir, name)}`
+      const configName = getSnakeCase(configPath)
 
       return [
         {
@@ -56,9 +57,9 @@ module.exports = (plop) => {
         },
         {
           type: 'modify',
-          path: './config/router.config.ts',
+          path: './src/routes/routes.ts',
           pattern: /(\s+\/\*\* PREPEND ITEMS HERE \*\/)/gi,
-          template: `\n  { path: '${configPath}', name: '{{title}}', component: '${configComponent}' },$1`,
+          template: `\n  {\n    path: '/${configPath}',\n    name: '{{title}}',\n    component: lazy(\n      () => import(/* webpackChunkName: "${configName}" */ '@/pages/${configPath}')\n    ),\n  },$1`,
         },
       ]
     },

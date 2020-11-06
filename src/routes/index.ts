@@ -1,6 +1,6 @@
 import React, { lazy } from 'react'
 import ReactRouterDom from 'react-router-dom'
-import defaultRoutes from './config'
+import defaultRoutes from './routes'
 
 export { default as renderRoutes } from './renderRoutes'
 
@@ -38,10 +38,8 @@ defaultRoutes.forEach(({ path, name, layout = true, component }) => {
   const route = {
     path,
     name,
+    component,
     exact: !!path,
-    component:
-      component &&
-      lazy(() => import(`@/pages/${component.replace(/^\.\//, '')}`)),
   }
 
   if (layout) {

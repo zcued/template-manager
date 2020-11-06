@@ -6,7 +6,9 @@ import {
   Row,
   Col,
   Form,
+  Tag,
   Input,
+  InputNumber,
   Select,
   DatePicker,
   Button,
@@ -19,6 +21,7 @@ import { RouteComponentProps } from '@/routes'
 import { getUserList } from '@/services/user'
 
 const { Item: FormItem } = Form
+const { CheckableTag } = Tag
 const { Option } = Select
 const { RangePicker } = DatePicker
 
@@ -39,6 +42,7 @@ export default function UserPlop({
   const [current, setCurrent] = useState(1)
   const [pageSize, setPageSize] = useState(10)
   const [total] = useState(100)
+  const [checkedTags, setCheckedTags] = useState([])
 
   const query = useQuery()
 
@@ -123,6 +127,25 @@ export default function UserPlop({
       <Card className="table-search">
         <Form onFinish={(values) => handleSearch(values, 1, pageSize)}>
           <Row gutter={24}>
+            <Col span={24}>
+              <FormItem label="多选" name="tag" initialValue={query.tag}>
+                {['Movies', 'Books', 'Music', 'Sports'].map((item) => (
+                  <CheckableTag
+                    key={item}
+                    checked={checkedTags.includes(item)}
+                    onChange={(checked) => {
+                      setCheckedTags(
+                        checked
+                          ? [...checkedTags, item]
+                          : checkedTags.filter((tag) => tag !== item)
+                      )
+                    }}
+                  >
+                    {item}
+                  </CheckableTag>
+                ))}
+              </FormItem>
+            </Col>
             <Col {...colSpan}>
               <FormItem label="名称" name="name" initialValue={query.name}>
                 <Input placeholder="请输入" allowClear />
@@ -149,6 +172,21 @@ export default function UserPlop({
                 }
               >
                 <RangePicker />
+              </FormItem>
+            </Col>
+            <Col {...colSpan}>
+              <FormItem label="年限">
+                <FormItem
+                  noStyle
+                  name="ages_start"
+                  initialValue={query.ages_start}
+                >
+                  <InputNumber placeholder="请输入" />
+                </FormItem>
+                <span className="divider">-</span>
+                <FormItem noStyle name="ages_end" initialValue={query.ages_end}>
+                  <InputNumber placeholder="请输入" />
+                </FormItem>
               </FormItem>
             </Col>
             <Col className="options" flex={1}>

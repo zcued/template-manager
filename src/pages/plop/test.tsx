@@ -32,7 +32,7 @@ const colSpan = {
   xxl: 6,
 }
 
-export default function {{nameParse/pascalName}}({
+export default function PlopTest({
   location,
   history,
   route,
@@ -212,7 +212,7 @@ export default function {{nameParse/pascalName}}({
           dataSource={data}
           columns={columns}
           rowKey={(record: any) => record.id.name + record.id.value}
-          pagination=\{{
+          pagination={{
             current,
             pageSize,
             total,

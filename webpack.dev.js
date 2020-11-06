@@ -13,6 +13,42 @@ module.exports = merge(config, {
       'react-dom': '@hot-loader/react-dom',
     },
   },
+  module: {
+    rules: [
+      {
+        test: /\.less$/,
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              modules: {
+                localIdentName: '[path][name]__[local]--[hash:base64:5]',
+                mode: (resourcePath) => {
+                  if (
+                    /assets\/styles\/.*.(le|c)ss$/i.test(resourcePath) ||
+                    /node_modules\/.*.(le|c)ss$/i.test(resourcePath)
+                  ) {
+                    return 'global'
+                  }
+
+                  return 'local'
+                },
+              },
+            },
+          },
+          {
+            loader: 'less-loader',
+            options: {
+              lessOptions: {
+                javascriptEnabled: true,
+              },
+            },
+          },
+        ],
+      },
+    ],
+  },
   devServer: {
     contentBase: path.resolve(__dirname, 'public'),
     disableHostCheck: true,

@@ -18,6 +18,42 @@ module.exports = merge(config, {
   optimization: {
     minimizer: [new TerserPlugin(), new CssMinimizerPlugin()],
   },
+  module: {
+    rules: [
+      {
+        test: /\.less$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              modules: {
+                localIdentName: '[path][name]__[local]--[hash:base64:5]',
+                mode: (resourcePath) => {
+                  if (
+                    /assets\/styles\/.(le|c)ss$/i.test(resourcePath) ||
+                    /node_modules\/.*.(le|c)ss$/i.test(resourcePath)
+                  ) {
+                    return 'global'
+                  }
+
+                  return 'local'
+                },
+              },
+            },
+          },
+          {
+            loader: 'less-loader',
+            options: {
+              lessOptions: {
+                javascriptEnabled: true,
+              },
+            },
+          },
+        ],
+      },
+    ],
+  },
   plugins: [
     new CleanWebpackPlugin(),
     new CopyWebpackPlugin({ patterns: [{ from: 'public' }] }),
