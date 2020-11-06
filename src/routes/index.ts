@@ -35,7 +35,7 @@ const layoutRoute: Route = {
 }
 
 defaultRoutes.forEach(({ path, name, layout = true, component }) => {
-  const route = {
+  const route: Route = {
     path,
     name,
     component,

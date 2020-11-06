@@ -27,6 +27,11 @@ const mockMenu = [
         name: '二级菜单2',
         icon: 'smile',
       },
+      {
+        path: '/user/plop',
+        name: 'plop模版',
+        icon: 'smile',
+      },
     ],
   },
   {
@@ -73,6 +78,7 @@ function Layout({ route }: Props): React.ReactElement {
         logo="//static.hellorf.com/hellorf/images/hellorf-fav.png"
         onMenuHeaderClick={() => history.push('/')}
         postMenuData={() => loopMenuItem(mockMenu)}
+        // menuDataRender={() => loopMenuItem(mockMenu)}
         menuItemRender={(item, dom) => <Link to={item.path}>{dom}</Link>}
         rightContentRender={() => <RightContent />}
         itemRender={(breadcrumbRoute) => {

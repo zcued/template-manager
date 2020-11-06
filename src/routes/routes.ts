@@ -4,7 +4,9 @@ interface Route {
   path?: string
   name?: string
   layout?: boolean
+  hideInMenu?: boolean
   component?: React.ComponentType<any>
+  routes?: Route[]
 }
 
 const routes: Route[] = [
@@ -40,6 +42,7 @@ const routes: Route[] = [
   {
     path: '/user/sub-page1/edit',
     name: '编辑用户',
+    hideInMenu: true,
     component: lazy(
       () =>
         import(
