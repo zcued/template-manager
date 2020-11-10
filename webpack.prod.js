@@ -1,13 +1,10 @@
 const { merge } = require('webpack-merge')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
 const config = require('./webpack.common')
-
-const isAnalyze = !!process.env.ANALYZE
 
 module.exports = merge(config, {
   mode: 'production',
@@ -61,6 +58,5 @@ module.exports = merge(config, {
       filename: '[name]-[contenthash:8].css',
       chunkFilename: '[name]-[contenthash:8].css',
     }),
-    isAnalyze && new BundleAnalyzerPlugin(),
-  ].filter((plugin) => plugin),
+  ],
 })

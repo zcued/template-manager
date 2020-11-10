@@ -1,6 +1,7 @@
 const path = require('path')
 const webpack = require('webpack')
 const { merge } = require('webpack-merge')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const config = require('./webpack.common')
 const { proxy } = require('./config')
 
@@ -18,7 +19,8 @@ module.exports = merge(config, {
       {
         test: /\.less$/,
         use: [
-          'style-loader',
+          MiniCssExtractPlugin.loader,
+          // 'style-loader',
           {
             loader: 'css-loader',
             options: {
@@ -62,5 +64,11 @@ module.exports = merge(config, {
       ...proxy,
     },
   },
-  plugins: [new webpack.HotModuleReplacementPlugin()],
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new MiniCssExtractPlugin({
+      filename: '[name]-[contenthash:8].css',
+      chunkFilename: '[name]-[contenthash:8].css',
+    }),
+  ],
 })

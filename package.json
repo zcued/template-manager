@@ -5,10 +5,11 @@
   "scripts": {
     "start": "webpack-dev-server --config webpack.dev.js --progress --color",
     "build": "webpack --config webpack.prod.js --progress --color",
+    "build:dev": "webpack --config webpack.dev.js --progress --color",
     "build:alpha": "cross-env ENV=alpha webpack --config webpack.prod.js --progress --color",
     "build:beta": "cross-env ENV=beta webpack --config webpack.prod.js --progress --color",
     "build:seven": "cross-env ENV=seven webpack --config webpack.prod.js --progress --color",
-    "analyze": "cross-env ANALYZE=1 npm run build",
+    "analyze": "cross-env ANALYZE=1 npm run build:build",
     "lint:js": "eslint \"src/**/*.{js,jsx,ts,tsx}\"",
     "lint:style": "stylelint \"src/**/*.less\" --syntax less",
     "prettier": "prettier --write \"src/**/*.{js,jsx,ts,tsx,less}\"",

@@ -2,6 +2,9 @@ const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const AntdDayjsWebpackPlugin = require('antd-dayjs-webpack-plugin')
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
+
+const isAnalyze = !!process.env.ANALYZE
 
 module.exports = {
   entry: './src/index.tsx',
@@ -45,5 +48,6 @@ module.exports = {
     new webpack.DefinePlugin({
       ENV: JSON.stringify(process.env.ENV),
     }),
-  ],
+    isAnalyze && new BundleAnalyzerPlugin(),
+  ].filter((plugin) => plugin),
 }

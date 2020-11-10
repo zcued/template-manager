@@ -74,13 +74,6 @@ const routes: Route[] = [
       () => import(/* webpackChunkName: "about" */ '@/pages/about')
     ),
   },
-  {
-    path: '/plop/test',
-    name: 'plop模版',
-    component: lazy(
-      () => import(/* webpackChunkName: "plop_test" */ '@/pages/plop/test')
-    ),
-  },
   /** PREPEND ITEMS HERE */
   {
     component: lazy(() => import(/* webpackChunkName: "404" */ '@/pages/404')),
