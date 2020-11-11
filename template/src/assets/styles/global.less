@@ -1,0 +1,56 @@
+@import '~antd/dist/antd.less';
+
+#root {
+  height: 100%;
+}
+
+.ant-layout-content {
+  min-height: auto;
+}
+
+.ant-card.table-search {
+  margin-bottom: 16px;
+
+  .ant-card-body {
+    padding-bottom: 0;
+  }
+
+  .ant-form-item-control-input-content {
+    display: flex;
+    align-items: center;
+
+    & > .ant-input,
+    & > .ant-input-number,
+    & > .ant-select,
+    & > .ant-picker {
+      flex: 1;
+    }
+
+    & > .divider {
+      margin: 0 8px;
+    }
+  }
+
+  .options {
+    .ant-form-item-control-input-content {
+      justify-content: flex-end;
+    }
+
+    button + button {
+      margin-left: 8px;
+    }
+  }
+}
+
+.table-list {
+  .ant-card-body {
+    padding-bottom: 0;
+  }
+
+  .options {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+}

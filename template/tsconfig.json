@@ -1,0 +1,36 @@
+{
+  "compilerOptions": {
+    "outDir": "dist",
+    "module": "esnext",
+    "target": "esnext",
+    "lib": ["esnext", "dom"],
+    "jsx": "preserve",
+    "sourceMap": true,
+    "strict": false,
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "forceConsistentCasingInFileNames": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": [
+    "src/**/*",
+    "config/**/*",
+    "plop-config/**/*",
+    "plop-template/**/*",
+    ".eslintrc.js",
+    ".prettierrc.js",
+    "babel.config.js",
+    "plopfile.js",
+    "webpack.common.js",
+    "webpack.dev.js",
+    "webpack.prod.js"
+  ],
+  "exclude": ["node_modules"]
+}
